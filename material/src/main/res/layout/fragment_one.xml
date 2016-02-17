@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/text"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="5dp">
+    <com.cengalabs.flatui.views.FlatButton
+        android:id="@+id/dataproduk"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        flatui:fl_theme="@array/grass"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/dataproduk"
+        flatui:fl_blockButtonEffectHeight="3dp" />
+
+    <com.cengalabs.flatui.views.FlatButton
+        android:id="@+id/datacustomer"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        flatui:fl_theme="@array/grass"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/datacustomer"
+        flatui:fl_blockButtonEffectHeight="3dp" />
+
+    <com.cengalabs.flatui.views.FlatButton
+        android:id="@+id/dataplafond"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        flatui:fl_theme="@array/grass"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/sinkronisasi"
+        flatui:fl_blockButtonEffectHeight="3dp" />
+
+
+    <com.cengalabs.flatui.views.FlatButton
+        android:id="@+id/versidata"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        flatui:fl_theme="@array/grass"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/periksa"
+        flatui:fl_blockButtonEffectHeight="3dp" />
+
+
+</LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Register">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+        android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </RelativeLayout>
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:flatui="http://schemas.android.com/apk/res-auto"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="5dp">
+
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/kodesales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Kode Sales"
+                    android:includeFontPadding="true"
+
+                    flatui:fl_theme="@array/grass" />
+
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/namasales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Nama Sales"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Username"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:gravity="center_vertical"
+                    android:hint="Password"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/kodearea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Kode Area"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/kodeaktivasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Kode Aktivasi"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+                <com.cengalabs.flatui.views.FlatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass"
+                    android:text="gps"
+                    />
+
+
+                <com.cengalabs.flatui.views.FlatCheckBox
+                    android:id="@+id/gps45"
+                    flatui:fl_theme="@array/grass" android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/tipesales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:gravity="center_vertical"
+                    android:hint="Tipe Sales"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+                <com.cengalabs.flatui.views.FlatEditText
+                    android:id="@+id/ipserver2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:maxLines="1"
+                    android:gravity="center_vertical"
+                    android:hint="IP Server"
+                    android:includeFontPadding="true"
+                    flatui:fl_theme="@array/grass" />
+
+                <com.cengalabs.flatui.views.FlatButton
+                    android:id="@+id/btnLogin"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Sign in"
+                    flatui:fl_blockButtonEffectHeight="3dp" />
+
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+</LinearLayout>
+

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:background="#ededed"
+              android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+                                                android:id="@+id/appbar"
+                                                android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+                                           android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+                                           android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- A CardView that contains a TextView -->
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view1"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:elevation="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="4dp" android:padding="10dp"
+        >
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CekItem" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/darker_gray" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/op"
+        android:text=""/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tanggal"
+        android:text=""/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/kodecustomer"/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/totalbelanja"
+        android:text=""/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/totalDiskonX"
+        android:text=""/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/diskonY"
+        android:text=""/>
+    </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        card_view:cardCornerRadius="4dp" android:padding="10dp">
+
+    <LinearLayout android:layout_width="fill_parent"
+                  android:orientation="vertical"
+                    android:layout_height="wrap_content">
+        <EditText android:id="@+id/keterangan"
+                  android:maxLines="1"
+                  android:maxLength="55"
+                  android:singleLine="true"
+                  android:hint="catatan" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/order"
+                  android:maxLines="1"
+                  android:maxLength="55"
+                  android:singleLine="true"
+                  android:hint="order PO" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!-- A CardView that contains a TextView -->
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:elevation="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="4dp" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+
+        <EditText
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:hint="dis1"
+            android:inputType="numberDecimal"
+            android:id="@+id/diskon1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <EditText
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:hint="dis2"
+            android:inputType="numberDecimal"
+            android:id="@+id/diskon2"
+            android:layout_toRightOf="@+id/diskon1"/>
+
+        <EditText
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:hint="dis3"
+            android:inputType="numberDecimal"
+            android:id="@+id/diskon3"
+            android:layout_toRightOf="@+id/diskon2"/>
+
+        <com.cengalabs.flatui.views.FlatButton
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="Hitung"
+            android:layout_marginRight="5dp"
+            android:id="@+id/hitung"
+            android:textSize="13sp"
+            android:layout_toRightOf="@+id/diskon3"
+            />
+        <com.cengalabs.flatui.views.FlatButton
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:text="Kirim"
+        android:layout_toRightOf="@+id/hitung"
+        android:id="@+id/kirim"
+        android:textSize="13sp"
+        />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message"/>
+</RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <ListView android:id="@+id/ceklist"
+              android:layout_height="fill_parent"
+              android:layout_width="fill_parent"
+        />
+
+
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AplikasiDistributor.iml" filepath="$PROJECT_DIR$/../AplikasiDistributor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../com.iqbal.zipdownloader/com.iqbal.zipdownloader.iml" filepath="$PROJECT_DIR$/../com.iqbal.zipdownloader/com.iqbal.zipdownloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/material.iml" filepath="$PROJECT_DIR$/material.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../materialdua/materialdua.iml" filepath="$PROJECT_DIR$/../materialdua/materialdua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../materialempat/materialempat.iml" filepath="$PROJECT_DIR$/../materialempat/materialempat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../materiallogin/materiallogin.iml" filepath="$PROJECT_DIR$/../materiallogin/materiallogin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../materialtiga/materialtiga.iml" filepath="$PROJECT_DIR$/../materialtiga/materialtiga.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../volley/volley.iml" filepath="$PROJECT_DIR$/../volley/volley.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../zipdownloader/zipdownloader.iml" filepath="$PROJECT_DIR$/../zipdownloader/zipdownloader.iml" />
+    </modules>
+  </component>
+</project>
