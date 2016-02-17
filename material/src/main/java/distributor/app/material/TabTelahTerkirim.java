@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +46,7 @@ import distributor.app.material.sqlite.SqliteManagerDetails;
 import distributor.app.material.sqlite.SqliteManagerTelahTerkirim;
 
 
-public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TabTelahTerkirim extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     FlatButton flabtn;
     ArrayList<HashMap<String, String>> contactlist;
@@ -77,12 +80,89 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
     public TabTelahTerkirim() {
         // Required empty public constructor
     }
-
+    Context mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        mContext = this;
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.fragement_transaksi);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        contactlist = new ArrayList<HashMap<String, String>>();
+        dbPending = new SqliteManagerTelahTerkirim(mContext);
+        dbPending.bukaKoneksi();
+        lv = (ListView) findViewById(R.id.list);
+        ////////////////////////////////////////////////////////////////////////////////
+        // MENGAMBIL KODE AREA DAN KODE SALES
+        ///////////////////////////////////////////////////////////////////////////////
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        //////////////////////////////////////////////////////////////////////////////////////////
+        // setCustomList yang baru
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+
+        customerList = new ArrayList<Header>();
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        fetchList();
+
+                                    }
+                                }
+        );
+
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
+        lv.setAdapter(CustomerAdapter);
+        lv.setTextFilterEnabled(true);
+        dbPending.tutupKoneksi();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Header custom = (Header) parent.getItemAtPosition(position);
+                Toast.makeText(mContext,
+                        custom.getCode() + custom.getNoPOcustomer() + custom.getCatatan(), Toast.LENGTH_SHORT).show();
+                //custid.setText(custom.getCode().trim());
+
+                Intent i = new Intent(mContext, TelahTerkirim.class);
+                /*i.putExtra("faktur", custom.getCode());
+                i.putExtra("tanggal", custom.getTanggal());
+                i.putExtra("custid", custom.getKustomer());
+                i.putExtra("nopocustomer", custom.getNoPOcustomer());
+                i.putExtra("custid", custom.getKustomer());
+                //i.putExtra("pilihandistributor", custom.getPilihandistributor());
+                i.putExtra("catatan", custom.getCatatan());
+                i.putExtra("myBoolean", false);
+                */
+
+                i.putExtra("orderpenjualan", custom.getCode());
+                i.putExtra("latitude", custom.getNoPOcustomer());
+                i.putExtra("custid", custom.getKustomer());
+                //i.putExtra("pilihandistributor", custom.getPilihandistributor());
+                i.putExtra("ppn", custom.getCatatan());
+                i.putExtra("longitude", custom.getTanggal());
+                startActivity(i);
+
+            }
+        });
+
     }
 
+    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,6 +195,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
+      /*
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -148,7 +229,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
                 i.putExtra("catatan", custom.getCatatan());
                 i.putExtra("myBoolean", false);
                 */
-
+/*
                 i.putExtra("orderpenjualan", custom.getCode());
                 i.putExtra("latitude", custom.getNoPOcustomer());
                 i.putExtra("custid", custom.getKustomer());
@@ -177,11 +258,11 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
                             "d1", "d2", "d3", "nett", "lat", "lon", "jlhrec", device_id, orderpo, catatan, parts3[0],
                             parts3[1], nSpinner1));
 */
-
+/*
         return rootView;
     }
 
-
+*/
     public void fetchList(){
         swipeRefreshLayout.setRefreshing(true);
         customerList = dbPending.getAllDataHeaderArrayList();
@@ -195,7 +276,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
         fetchList();
         dbPending.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);
@@ -209,7 +290,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
     class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView parent, View view, int pos, long id) {
-            Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
             sCustid = parent.getItemAtPosition(pos).toString();
         }
 
@@ -257,7 +338,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
             Log.v("ConvertView", String.valueOf(position));
             if (convertView == null) {
 
-                LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(
+                LayoutInflater vi = (LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.list_item, null);
 
@@ -334,7 +415,7 @@ public class TabTelahTerkirim extends Fragment implements SwipeRefreshLayout.OnR
         fetchList();
         dbPending.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);

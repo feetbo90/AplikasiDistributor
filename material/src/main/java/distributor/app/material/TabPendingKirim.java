@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +46,7 @@ import distributor.app.material.sqlite.SqliteManagerDetails;
 import distributor.app.material.sqlite.SqliteManagerPendingKirim;
 
 
-public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TabPendingKirim extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     FlatButton flabtn;
     ArrayList<HashMap<String, String>> contactlist;
@@ -77,12 +80,84 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
     public TabPendingKirim() {
         // Required empty public constructor
     }
-
+Context mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        mContext = this;
         super.onCreate(savedInstanceState);
+
+        contactlist = new ArrayList<HashMap<String, String>>();
+        setContentView(R.layout.fragement_transaksi);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        // pertama buka koneksi untuk membuat list
+        dbPending = new SqliteManagerPendingKirim(mContext);
+        dbPending.bukaKoneksi();
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+
+        lv = (ListView) findViewById(R.id.list);
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        // setCustomList yang baru
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+
+        customerList = new ArrayList<Header>();
+
+        //customerList = dbPending.getAllDataHeaderArrayList();
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        fetchList();
+
+                                    }
+                                }
+        );
+
+        CustomerAdapter = new MyCustomAdapter(this, R.layout.customer_layout, customerList);
+        lv.setAdapter(CustomerAdapter);
+
+        lv.setTextFilterEnabled(true);
+        dbPending.tutupKoneksi();
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Header custom = (Header) parent.getItemAtPosition(position);
+                Toast.makeText(mContext,
+                        custom.getCode() + custom.getNoPOcustomer() + custom.getCatatan(), Toast.LENGTH_SHORT).show();
+                //custid.setText(custom.getCode().trim());
+
+                Intent i = new Intent(mContext, KirimUlang.class);
+                i.putExtra("orderpenjualan", custom.getCode());
+                i.putExtra("latitude", custom.getNoPOcustomer());
+                i.putExtra("custid", custom.getKustomer());
+                //i.putExtra("pilihandistributor", custom.getPilihandistributor());
+                i.putExtra("ppn", custom.getCatatan());
+                i.putExtra("longitude", custom.getTanggal());
+                startActivity(i);
+
+            }
+        });
+
     }
 
+    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,7 +194,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
-        swipeRefreshLayout.post(new Runnable() {
+       /* swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
 
@@ -163,7 +238,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
 
 
 
-
+*/
 
 
 /*
@@ -171,10 +246,12 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
                             "1", HariStr + "-" + BulanStr + "-" + TahunStr, "tanggal jam", sKodeSales, "-", "grss", "ppn",
                             "d1", "d2", "d3", "nett", "lat", "lon", "jlhrec", device_id, orderpo, catatan, parts3[0],
                             parts3[1], nSpinner1));
-*/
+
 
         return rootView;
     }
+
+    */
 
     public void fetchList(){
         swipeRefreshLayout.setRefreshing(true);
@@ -189,7 +266,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
         fetchList();
         dbPending.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);
@@ -203,7 +280,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
     class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView parent, View view, int pos, long id) {
-            Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
             sCustid = parent.getItemAtPosition(pos).toString();
         }
 
@@ -251,7 +328,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
             Log.v("ConvertView", String.valueOf(position));
             if (convertView == null) {
 
-                LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(
+                LayoutInflater vi = (LayoutInflater) getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.list_item, null);
 
@@ -333,7 +410,7 @@ public class TabPendingKirim extends Fragment implements SwipeRefreshLayout.OnRe
         fetchList();
         dbPending.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);

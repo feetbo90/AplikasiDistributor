@@ -90,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new TabDua(), "Order");
-        adapter.addFragment(new TabTransaksi() , "Masih Transaksi" );
-        adapter.addFragment(new TabPendingKirim(), "Pending Kirim");
-        adapter.addFragment(new TabTelahTerkirim(), "Telah Terkirim");
+        //adapter.addFragment(new TabTransaksi() , "Masih Transaksi" );
+        //adapter.addFragment(new TabPendingKirim(), "Pending Kirim");
+        //adapter.addFragment(new TabTelahTerkirim(), "Telah Terkirim");
+        adapter.addFragment(new TabPengganti(), "Status Transaksi");
         adapter.addFragment(new Routing(), "Routing");
         adapter.addFragment(new TabSatu(), "Sinkronisasi");
         //adapter.addFragment(new ThreeFragment(), "THREE");

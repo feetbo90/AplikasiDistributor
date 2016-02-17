@@ -116,6 +116,38 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <activity
+            android:name=".TabTransaksi"
+            android:screenOrientation="portrait"
+            android:label="Transaksi"
+            android:parentActivityName=".MainActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".TabPendingKirim"
+            android:screenOrientation="portrait"
+            android:label="Pending Kirim"
+            android:parentActivityName=".MainActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".TabTelahTerkirim"
+            android:screenOrientation="portrait"
+            android:label="Telah Terkirim"
+            android:parentActivityName=".MainActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
 
         <activity android:name=".TabSetting"
                   android:screenOrientation="portrait"></activity>

@@ -4,18 +4,19 @@
                 android:layout_height="match_parent"
                 xmlns:flatui="http://schemas.android.com/apk/res-auto"
     >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/text"/>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:paddingLeft="5dp">
+
+
+
+
         <com.cengalabs.flatui.views.FlatButton
-            android:id="@+id/dataproduk"
+            android:id="@+id/masihtransaksi"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"
@@ -26,7 +27,7 @@
             flatui:fl_blockButtonEffectHeight="3dp" />
 
         <com.cengalabs.flatui.views.FlatButton
-            android:id="@+id/datacustomer"
+            android:id="@+id/pendingkirim"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             flatui:fl_theme="@array/grass"
@@ -37,7 +38,7 @@
             flatui:fl_blockButtonEffectHeight="3dp" />
 
         <com.cengalabs.flatui.views.FlatButton
-            android:id="@+id/dataplafond"
+            android:id="@+id/telahterkirim"
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:layout_marginLeft="10dp"

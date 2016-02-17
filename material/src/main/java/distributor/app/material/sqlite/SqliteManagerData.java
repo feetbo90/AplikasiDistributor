@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -524,22 +527,58 @@ public class SqliteManagerData {
     // Masukkan Data Customer
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    public ContentValues InsertDataCustomer(String custid, String nama, String alamat, String alamat2, String icjlnid,
+    public void InsertDataCustomer(String custid, String nama, String alamat, String alamat2, String icjlnid,
                                    String week, String day, String routeid, String crlimit) {
-        ContentValues values = new ContentValues();
-        values.put(SqliteManagerData.TAG_CUSTID, custid);
-        values.put(SqliteManagerData.TAG_NAMA, nama);
-        values.put(SqliteManagerData.TAG_ALAMAT, alamat);
-        values.put(SqliteManagerData.TAG_ALAMAT2, alamat2);
-        values.put(SqliteManagerData.TAG_ICJLNID, icjlnid);
-        values.put(SqliteManagerData.TAG_WEEK, week);
-        values.put(SqliteManagerData.TAG_DAY, day);
-        values.put(SqliteManagerData.TAG_ROUTEID, routeid);
-        values.put(SqliteManagerData.TAG_CRLIMIT, crlimit);
+
+        List<Contact> contactList = new ArrayList<Contact>();
+        // Select All Query
+
+//        String selectQuery = "SELECT  * FROM " + NAMA_TABEL;
+        String nilai = "ok";
+        String selectQuery = "SELECT  * FROM " + NAMA_TABEL_CUSTOMER + " where " + TAG_CUSTID + " = '" + custid +"' ;" ;
+
+
+        crudHelper = new SqliteManagerHelper(crudContext);
+        crudDatabase = crudHelper.getWritableDatabase();
+        Cursor cursor = crudDatabase.rawQuery(selectQuery, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                String custid2 = cursor.getString(1);
+                if(TextUtils.isEmpty(custid2))
+                {
+                    ContentValues values = new ContentValues();
+                    values.put(SqliteManagerData.TAG_CUSTID, custid);
+                    values.put(SqliteManagerData.TAG_NAMA, nama);
+                    values.put(SqliteManagerData.TAG_ALAMAT, alamat);
+                    values.put(SqliteManagerData.TAG_ALAMAT2, alamat2);
+                    values.put(SqliteManagerData.TAG_ICJLNID, icjlnid);
+                    values.put(SqliteManagerData.TAG_WEEK, week);
+                    values.put(SqliteManagerData.TAG_DAY, day);
+                    values.put(SqliteManagerData.TAG_ROUTEID, routeid);
+                    values.put(SqliteManagerData.TAG_CRLIMIT, crlimit);
+                    crudDatabase.insert(NAMA_TABEL_PRODUK, null, values);
+                }else{
+                    ContentValues values = new ContentValues();
+                    values.put(SqliteManagerData.TAG_CUSTID, custid);
+                    values.put(SqliteManagerData.TAG_NAMA, nama);
+                    values.put(SqliteManagerData.TAG_ALAMAT, alamat);
+                    values.put(SqliteManagerData.TAG_ALAMAT2, alamat2);
+                    values.put(SqliteManagerData.TAG_ICJLNID, icjlnid);
+                    values.put(SqliteManagerData.TAG_WEEK, week);
+                    values.put(SqliteManagerData.TAG_DAY, day);
+                    values.put(SqliteManagerData.TAG_ROUTEID, routeid);
+                    values.put(SqliteManagerData.TAG_CRLIMIT, crlimit);
+                    crudDatabase.update(NAMA_TABEL_PRODUK,  values, TAG_CUSTID + "=" + custid, null );
+                }
+
+            } while (cursor.moveToNext());
+        }
+
 
 
         //values.put(SqliteManager.FIELD_TIPE_SALES, tipe_sales);
-        return values;
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -286,7 +286,7 @@ public class TabSatu extends Fragment{
                     Log.d("ready server", strReceived);
                 }else if(!(strReceived.contains("|")))
                 {
-                    pDialog.dismiss();
+                   // pDialog.dismiss();
                 }
                 else if(strReceived.contains("|") ){
 

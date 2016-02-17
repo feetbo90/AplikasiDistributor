@@ -155,7 +155,7 @@ public class JsonParsing {
         sqLite = new SqliteManagerData(mContext);
         sqLite.bukaKoneksi();
 
-        if(json !=null && sqLite.hapusplafond())
+        if(json !=null )
         {
             try{
                 JSONObject jsonObject = new JSONObject(json);
@@ -193,7 +193,7 @@ public class JsonParsing {
         sqLite.bukaKoneksi();
 
         Log.d("masuk customer", "Masuk");
-        if(json !=null && sqLite.hapuscustomer())
+        if(json !=null)
         {
             try{
                 JSONObject jsonObject = new JSONObject(json);
@@ -211,12 +211,9 @@ public class JsonParsing {
                     String routeID = c.getString(TAG_ROUTEID);
                     String crlimit = c.getString(TAG_CRLIMIT);
 
-                    long nilai = sqLite.insertDataCustomer(sqLite.InsertDataCustomer(custid, nama,
-                            alamat,alamat2, icjlnid, week, day, routeID, crlimit));
-                    if(nilai > 0 )
-                    {
-                        Log.d("Berhasil", "crlimit" + nilai);
-                    }
+                    sqLite.InsertDataCustomer(custid, nama,
+                            alamat,alamat2, icjlnid, week, day, routeID, crlimit);
+
                 }
 
             }catch (JSONException e)
@@ -239,7 +236,7 @@ public class JsonParsing {
        sqLite = new SqliteManagerData(mContext);
         sqLite.bukaKoneksi();
 
-        if(json !=null &&  sqLite.hapusproduk())        {
+        if(json !=null )        {
             try {
                 JSONObject jsonObject = new JSONObject(json);
                 // Getting JSON Array nodeData

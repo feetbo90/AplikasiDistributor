@@ -90,7 +90,7 @@ public class Routing extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                              Bundle savedInstanceState) {
 
         contactlist = new ArrayList<HashMap<String, String>>();
-        View rootView = inflater.inflate(R.layout.fragement_transaksi, container, false);
+        View rootView = inflater.inflate(R.layout.routing, container, false);
         // pertama buka koneksi untuk membuat list
         db = new SqliteManagerData(getActivity());
         db.bukaKoneksi();

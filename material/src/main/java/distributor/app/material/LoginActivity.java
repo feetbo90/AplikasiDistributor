@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 sqliteDB.tutupKoneksi();
                 if(nama.equals(name)&& pass.equals(password) && Long.toHexString(crc.getValue()).equals(CRC))
                 {
-                    Intent i = new Intent(LoginActivity.this, TampilanAwal.class);
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
                     i.putExtra("kodearea", Kode_Area);
                     i.putExtra("kodesales", Kode_Sales);
                     startActivity(i);

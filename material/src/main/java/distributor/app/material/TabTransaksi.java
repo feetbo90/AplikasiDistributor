@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -44,7 +47,7 @@ import distributor.app.material.sqlite.SqliteManagerData;
 import distributor.app.material.sqlite.SqliteManagerDetails;
 
 
-public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TabTransaksi extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     FlatButton flabtn;
     ArrayList<HashMap<String, String>> contactlist;
@@ -79,12 +82,87 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
     public TabTransaksi() {
         // Required empty public constructor
     }
-
+    Context mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        mContext = this;
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragement_transaksi);
+        Toolbar tool = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(tool);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
+        dbDetails = new SqliteManagerDetails(mContext);
+        dbDetails.bukaKoneksi();
+        lv = (ListView) findViewById(R.id.list);
+        ////////////////////////////////////////////////////////////////////////////////
+        // MENGAMBIL KODE AREA DAN KODE SALES
+        ///////////////////////////////////////////////////////////////////////////////
+
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+
+
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        // setCustomList yang baru
+        /////////////////////////////////////////////////////////////////////////////////////////
+
+
+        customerList = new ArrayList<Header>();
+        //customerList = dbPending.getAllDataHeaderArrayList();
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        fetchList();
+
+                                    }
+                                }
+        );
+
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
+        lv.setAdapter(CustomerAdapter);
+
+        lv.setTextFilterEnabled(true);
+        dbDetails.tutupKoneksi();
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Header custom = (Header) parent.getItemAtPosition(position);
+                Toast.makeText(mContext,
+                        custom.getCode() + custom.getNoPOcustomer() + custom.getCatatan(), Toast.LENGTH_SHORT).show();
+                //custid.setText(custom.getCode().trim());
+
+                Intent i = new Intent(mContext, Details.class);
+                i.putExtra("faktur", custom.getCode());
+                i.putExtra("nopocustomer", custom.getNoPOcustomer());
+                i.putExtra("custid", custom.getKustomer());
+                i.putExtra("pilihandistributor", custom.getPilihandistributor());
+                i.putExtra("catatan", custom.getCatatan());
+                i.putExtra("myBoolean", false);
+                startActivity(i);
+
+            }
+        });
+
     }
 
+    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,6 +196,7 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
+    /*
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
@@ -171,10 +250,10 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
                             "d1", "d2", "d3", "nett", "lat", "lon", "jlhrec", device_id, orderpo, catatan, parts3[0],
                             parts3[1], nSpinner1));
 */
-
+/*
         return rootView;
     }
-
+*/
 
 
     public void fetchList(){
@@ -190,7 +269,7 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
         fetchList();
         dbDetails.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);
@@ -203,7 +282,7 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
     class MyOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
         @Override
         public void onItemSelected(AdapterView parent, View view, int pos, long id) {
-            Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "distributor: " + parent.getItemAtPosition(pos).toString(), Toast.LENGTH_SHORT).show();
             sCustid = parent.getItemAtPosition(pos).toString();
         }
 
@@ -251,7 +330,7 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
             Log.v("ConvertView", String.valueOf(position));
             if (convertView == null) {
 
-                LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(
+                LayoutInflater vi = (LayoutInflater) mContext.getSystemService(
                         Context.LAYOUT_INFLATER_SERVICE);
                 convertView = vi.inflate(R.layout.list_item, null);
 
@@ -327,7 +406,7 @@ public class TabTransaksi extends Fragment implements SwipeRefreshLayout.OnRefre
         fetchList();
         dbDetails.tutupKoneksi();
 
-        CustomerAdapter = new MyCustomAdapter(getActivity(), R.layout.customer_layout, customerList);
+        CustomerAdapter = new MyCustomAdapter(mContext, R.layout.customer_layout, customerList);
 
         lv.setAdapter(CustomerAdapter);
         lv.setTextFilterEnabled(true);
